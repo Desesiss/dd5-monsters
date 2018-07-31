@@ -44,7 +44,13 @@ class CreatureResults extends React.Component {
 
     this.setState({ order, orderBy });
   };
-
+  getRange(min, max){
+    if(min === max){
+      return min;
+    } else {
+      return min + ' - ' + max;
+    }
+  }
   renderCellHead({name, title}){
     const { order, orderBy } = this.state;
     return(
@@ -73,7 +79,7 @@ class CreatureResults extends React.Component {
     const {results} = this.props;
     return (
         <div>
-            {results && 
+            {results && results.length > 0 &&
                 <Paper className={'paper'}>
                 <Table className={'table'}>
                 <TableHead>
@@ -95,10 +101,10 @@ class CreatureResults extends React.Component {
                             {n.enName}
                             </TableCell>
                             <TableCell component="th" scope="row">
-                            {n.pvMin + ' - ' + n.pvMax}
+                            {this.getRange(n.pvMin, n.pvMax)}
                             </TableCell>
                             <TableCell component="th" scope="row">
-                            {n.caMin + ' - ' + n.caMax}
+                            {this.getRange(n.caMin, n.caMax)}
                             </TableCell>
                         </TableRow>
                         );

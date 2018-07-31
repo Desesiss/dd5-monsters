@@ -7,12 +7,20 @@ type Creature {
   caMax: Float
   enName: String
   pvMin: Float
-  frName: String
+  frName: String 
   pvMax: Float
+  
 }
 
 type Query {
-    creatures(id: ID, frName: String, enName: String, caMin: Float, caMax: Float, pvMin: Float, pvMax: Float, first: Int = 10, offset: Int = 0): [Creature]
+    creatures(
+      filter: String,
+      first: Int!,
+      offset: Int!,
+    ): [Creature] @cypher(
+      statement: 
+        "MATCH (c:Creature) WHERE toLower(c.frName) CONTAINS toLower($filter) RETURN c"
+    )
 }
 `;
 

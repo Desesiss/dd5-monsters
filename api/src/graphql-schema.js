@@ -2,14 +2,12 @@ import { neo4jgraphql } from "neo4j-graphql-js";
 
 export const typeDefs = `
 type Creature {
-  id: ID!
   caMin: Float
   caMax: Float
   enName: String
   pvMin: Float
   frName: String 
   pvMax: Float
-  
 }
 
 type Query {

@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import App from './app/index';
 import registerServiceWorker from './registerServiceWorker';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
+
+//Reference styles inside the application
+import './styles/index.css';
 
 const client = new ApolloClient({
     uri: process.env.REACT_APP_GRAPHQL_URI

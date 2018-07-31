@@ -2,9 +2,7 @@ import React from "react";
 import { Query } from "react-apollo";
 
 import gql from "graphql-tag";
-import "./CreatureList.css";
 
-import { withStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -14,17 +12,6 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Paper from "@material-ui/core/Paper";
 import { TableSortLabel } from "@material-ui/core";
 
-const styles = theme => ({
-  root: {
-    maxWidth: 700,
-    marginTop: theme.spacing.unit * 3,
-    overflowX: "auto",
-    margin: "auto"
-  },
-  table: {
-    minWidth: 700
-  }
-});
 
 function getSorting(order, orderBy) {
   return order === "desc"
@@ -69,7 +56,7 @@ class CreatureList extends React.Component {
                       sortDirection={orderBy === name ? order : false}
                     >
                       <Tooltip
-                        title="Sort"
+                        title="Trier"
                         placement="bottom-start"
                         enterDelay={300}
                       >
@@ -106,8 +93,8 @@ class CreatureList extends React.Component {
           if (error) return <p>Error</p>;
 
           return (
-            <Paper className={this.props.classes.root}>
-              <Table className={this.props.classes.table}>
+            <Paper className={'paper'}>
+              <Table className={'table'}>
                 <TableHead>
                   <TableRow>
                     {tableHead.map(x => this.renderCellHead(x))}
@@ -145,4 +132,4 @@ class CreatureList extends React.Component {
   }
 }
 
-export default withStyles(styles)(CreatureList);
+export default CreatureList;

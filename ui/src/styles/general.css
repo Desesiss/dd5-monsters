@@ -1,0 +1,18 @@
+
+
+.table {
+    min-width: 700
+}
+
+.page {
+    max-width: 700;
+    margin-top: 0;
+    overflow-X: "auto";
+    margin: "auto";
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+  }

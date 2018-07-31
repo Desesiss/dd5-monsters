@@ -1,0 +1,10 @@
+{
+'Creature' : {
+  "enName": "Goblin",
+  "caMin": 15,
+  "pvMin": 7,
+  "caMax": 15,
+  "frName": "Gobelin",
+  "pvMax": 7
+  }
+}

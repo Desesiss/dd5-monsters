@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom'
 
 import CreatureList from './creatures-list/index';
+import CreatureFile from './creature-file/index';
 
 class App extends Component {
   render() {
@@ -14,8 +15,9 @@ class App extends Component {
 
         <Switch>
           <Route exact path="/" component={CreatureList} />
+          <Route exact path="/file/:enName" component={CreatureFile} />
         </Switch>
-        
+
       </div>
     );
   }

@@ -18,12 +18,19 @@ type Query {
     ): [Creature] @cypher(
       statement: 
         "MATCH (c:Creature) WHERE toLower(c.frName) CONTAINS toLower($filter) RETURN c"
-    )
+    ),
+    getCreature(
+      enName: String!
+    ): [Creature] @cypher(
+      statement: 
+        "MATCH (c:Creature) WHERE toLower(c.enName) = toLower($enName) RETURN c"
+    ),
 }
 `;
 
 export const resolvers = {
   Query: {
-    creatures: neo4jgraphql
+    creatures: neo4jgraphql,
+    getCreature: neo4jgraphql
   }
 };

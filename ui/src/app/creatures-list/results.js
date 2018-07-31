@@ -9,6 +9,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Paper from "@material-ui/core/Paper";
 import { TableSortLabel } from "@material-ui/core";
 
+import {getRange} from '../utilities/index';
 
 function getSorting(order, orderBy) {
   return order === "desc"
@@ -28,6 +29,10 @@ class CreatureResults extends React.Component {
     super(props);
 
     this.renderCellHead = this.renderCellHead.bind(this);
+    this.renderCellContent = this.renderCellContent.bind(this);
+    this.onClickRow = this.onClickRow.bind(this);
+    
+
     this.state = {
       order: "asc",
       orderBy: "frName"
@@ -44,13 +49,7 @@ class CreatureResults extends React.Component {
 
     this.setState({ order, orderBy });
   };
-  getRange(min, max){
-    if(min === max){
-      return min;
-    } else {
-      return min + ' - ' + max;
-    }
-  }
+
   renderCellHead({name, title}){
     const { order, orderBy } = this.state;
     return(
@@ -74,6 +73,16 @@ class CreatureResults extends React.Component {
       </TableCell>
     );
   }
+  renderCellContent(enName, value){
+    return(
+        <TableCell component="th" scope="row">
+          {value}
+        </TableCell>
+    );
+  }
+  onClickRow(enName){
+    this.props.history.push(`/file/${enName}`)
+  }
   render() {
     const { order, orderBy } = this.state;
     const {results} = this.props;
@@ -93,20 +102,12 @@ class CreatureResults extends React.Component {
                     .sort(getSorting(order, orderBy))
                     .map(n => {
                         return (
-                        <TableRow key={n.id}>
-                            <TableCell component="th" scope="row">
-                            {n.frName}
-                            </TableCell>
-                            <TableCell component="th" scope="row">
-                            {n.enName}
-                            </TableCell>
-                            <TableCell component="th" scope="row">
-                            {this.getRange(n.pvMin, n.pvMax)}
-                            </TableCell>
-                            <TableCell component="th" scope="row">
-                            {this.getRange(n.caMin, n.caMax)}
-                            </TableCell>
-                        </TableRow>
+                            <TableRow className='clickable' key={n.id} onClick={()=> this.onClickRow(n.enName)}>
+                                {this.renderCellContent(n.enName, n.frName)}
+                                {this.renderCellContent(n.enName, n.enName)}
+                                {this.renderCellContent(n.enName, getRange(n.pvMin, n.pvMax))}
+                                {this.renderCellContent(n.enName, getRange(n.caMin, n.caMax))}
+                            </TableRow>
                         );
                     })}
                 </TableBody>

@@ -1,0 +1,38 @@
+@import '_variables.css';
+
+.table {
+    min-width: 700
+}
+
+.page {
+    max-width: 700;
+    margin-top: 0;
+    overflow-X: "auto";
+    margin: "auto";
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    display: flex;
+    flex-flow: column;
+  }
+
+.clickable:hover{
+    cursor: pointer;
+    background-color: $hover-clickable-background;
+    color: $hover-clickable-text;
+}
+
+h1 {
+
+}
+
+.field{
+    max-width: 200px;
+    display: flex;
+    justify-content: space-around;
+}
+.field-label{}
+.field-value{}

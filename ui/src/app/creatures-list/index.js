@@ -43,7 +43,7 @@ class CreatureList extends React.Component {
           return (
             <div>
               <CreatureCriteria _executeSearch={(newFilter) => refetch({filter: newFilter, first: 10, offset: 0})}/>
-              <CreatureResults results={data.creatures}/>
+              <CreatureResults {...this.props} results={data.creatures} />
             </div>
           );
         }}

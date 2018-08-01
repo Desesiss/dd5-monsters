@@ -19,18 +19,9 @@ const CREA_SEARCH_QUERY = gql`
 `
 
 class CreatureList extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      first: 10,
-      offset: 0,
-      filter: ''
-    };
-  }
 
   render() {
-    const {filter, first, offset} = this.state
+    const {filter, first, offset} = {filter: '', first: 10, offset: 0};
     return (
       <Query
         query={CREA_SEARCH_QUERY}
@@ -42,7 +33,7 @@ class CreatureList extends React.Component {
 
           return (
             <div>
-              <CreatureCriteria _executeSearch={(newFilter) => refetch({filter: newFilter, first: 10, offset: 0})}/>
+              <CreatureCriteria filter={filter} _executeSearch={(newFilter) => refetch({filter: newFilter, first: 10, offset: 0})}/>
               <CreatureResults {...this.props} results={data.creatures} />
             </div>
           );

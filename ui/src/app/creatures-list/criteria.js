@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import Button from '../components/button';
 
-class Search extends Component {
+class Search extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this._executeSearch = this._executeSearch.bind(this);
-    
 
     this.state = {
       filter: ''
@@ -14,7 +13,9 @@ class Search extends Component {
   }
 
   _executeSearch(){
-    this.props._executeSearch(this.state.filter);
+    if(this.state.filter !== this.props.filter) {
+      this.props._executeSearch(this.state.filter);
+    }
   }
 
   render() {
@@ -24,6 +25,7 @@ class Search extends Component {
           <input
             type='text'
             onChange={e => this.setState({ filter: e.target.value })}
+            value={this.state.filter}
           />
           <Button onClick={this._executeSearch}>OK</Button>
         </div>

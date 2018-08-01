@@ -114,6 +114,11 @@ class CreatureResults extends React.Component {
                 </Table>
             </Paper>
             }
+            {(results &&  results.length === 0) &&
+              <div>
+                Aucun résultat.
+              </div>
+            }
         </div>
     );
   }

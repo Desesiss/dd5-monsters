@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Button from '../components/button';
 
-class Search extends React.PureComponent {
+class Search extends Component {
   constructor(props) {
     super(props);
 
@@ -27,7 +27,7 @@ class Search extends React.PureComponent {
             onChange={e => this.setState({ filter: e.target.value })}
             value={this.state.filter}
           />
-          <Button onClick={this._executeSearch}>OK</Button>
+          <i className='material-icons' onClick={this._executeSearch}>search</i>
         </div>
       </div>
     )

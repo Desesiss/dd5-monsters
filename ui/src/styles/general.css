@@ -1,8 +1,12 @@
 
-.table {
-    min-width: 700;
-    padding: 20px;
-}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    display: flex;
+    flex-flow: column;
+    background-color: #fff6f6;
+  }
 
 .page {
     max-width: 700;
@@ -12,18 +16,18 @@
     margin: 10px;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    display: flex;
-    flex-flow: column;
-  }
 
 .paragraph {
     padding: 20px 0px;
 }
 
+/* Tableaux */
+.table {
+    min-width: 700;
+    padding: 20px;
+}
+
+/* Champ cliquable */
 .clickable:hover{
     cursor: pointer;
     background-color: #eaeaea;
@@ -35,10 +39,13 @@ body {
     flex-flow: row;
 }
 
-h1 {
-
+/* Icones cliquables */
+.material-icons {
+    cursor: pointer;
+    font-size: 2em;
 }
 
+/* Champs d'information */
 .field{
     max-width: 200px;
     display: flex;
@@ -46,3 +53,15 @@ h1 {
 }
 .field-label{}
 .field-value{}
+
+/* Titres */
+h1 {
+    font-weight: normal
+}
+h2 {
+
+}
+
+h3 {
+    
+}

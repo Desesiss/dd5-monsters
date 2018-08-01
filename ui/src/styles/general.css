@@ -65,3 +65,13 @@ h2 {
 h3 {
     
 }
+
+input {
+    background-color: transparent;
+    border-style: none;
+    font-size: 1em;
+}
+
+input:focus {
+    outline-style: none;
+}

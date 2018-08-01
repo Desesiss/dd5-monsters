@@ -17,7 +17,7 @@ type Query {
       offset: Int!,
     ): [Creature] @cypher(
       statement: 
-        "MATCH (c:Creature) WHERE toLower(c.frName) CONTAINS toLower($filter) RETURN c"
+        "MATCH (c:Creature) WHERE toLower(c.frName) CONTAINS toLower($filter) OR toLower(c.enName) CONTAINS toLower($filter) RETURN c"
     ),
     getCreature(
       enName: String!

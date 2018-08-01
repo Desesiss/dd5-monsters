@@ -60,7 +60,7 @@ class CreatureResults extends React.Component {
         <Tooltip
           title="Trier"
           placement="bottom-start"
-           enterDelay={300}
+          enterDelay={300}
         >
           <TableSortLabel
             active={orderBy === name}
@@ -93,7 +93,7 @@ class CreatureResults extends React.Component {
                 <Table className={'table'}>
                 <TableHead>
                     <TableRow>
-                    {tableHead.map(x => this.renderCellHead(x))}
+                      {tableHead.map(x => this.renderCellHead(x))}
                     </TableRow>
                 </TableHead>
                 <TableBody>

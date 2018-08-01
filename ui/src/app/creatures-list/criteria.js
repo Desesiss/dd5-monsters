@@ -1,16 +1,31 @@
 import React, { Component } from 'react'
+import Button from '../components/button';
 
 class Search extends Component {
+  constructor(props) {
+    super(props);
+
+    this._executeSearch = this._executeSearch.bind(this);
+    
+
+    this.state = {
+      filter: ''
+    };
+  }
+
+  _executeSearch(){
+    this.props._executeSearch(this.state.filter);
+  }
 
   render() {
     return (
       <div className='paragraph'>
-        <div>
+        <div className='dd-aligned'>
           <input
             type='text'
             onChange={e => this.setState({ filter: e.target.value })}
           />
-          <button onClick={() => this.props._executeSearch(this.state.filter)}>OK</button>
+          <Button onClick={this._executeSearch}>OK</Button>
         </div>
       </div>
     )

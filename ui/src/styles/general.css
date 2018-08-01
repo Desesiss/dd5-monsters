@@ -9,6 +9,7 @@
     margin-top: 0;
     overflow-X: "auto";
     margin: "auto";
+    margin: 10px;
 }
 
 body {
@@ -27,6 +28,11 @@ body {
     cursor: pointer;
     background-color: #eaeaea;
     color: black;
+}
+
+.dd-aligned{
+    display: flex;
+    flex-flow: row;
 }
 
 h1 {

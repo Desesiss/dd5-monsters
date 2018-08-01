@@ -7,7 +7,7 @@ import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter } from 'react-router-dom'
 
 //Reference styles inside the application
-import './styles/index.scss';
+import './styles/index.css';
 
 const client = new ApolloClient({
     uri: process.env.REACT_APP_GRAPHQL_URI

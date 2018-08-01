@@ -1,7 +1,7 @@
-@import '_variables.css';
 
 .table {
-    min-width: 700
+    min-width: 700;
+    padding: 20px;
 }
 
 .page {
@@ -19,10 +19,14 @@ body {
     flex-flow: column;
   }
 
+.paragraph {
+    padding: 20px 0px;
+}
+
 .clickable:hover{
     cursor: pointer;
-    background-color: $hover-clickable-background;
-    color: $hover-clickable-text;
+    background-color: #eaeaea;
+    color: black;
 }
 
 h1 {

@@ -14,6 +14,10 @@ const CREA_GET_QUERY = gql`
       pvMax
       caMin
       caMax
+      alignment {name }
+      senses {name }
+      size {name }
+      type {name }
     }
   }
 `
@@ -31,7 +35,6 @@ class CreatureFile extends React.Component {
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error</p>;
-          console.log('data', data)
             if (data.getCreature && data.getCreature.length === 1)
             {
               return <CreatureFileData data={data.getCreature[0]}/>

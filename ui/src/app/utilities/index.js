@@ -17,4 +17,19 @@ function getRange(min, max) {
     );
   }
 
-  export { getRange, displayField }
+  function displaySense(sense) {
+    if(sense) {
+      return sense.name + (sense.distance ? ' (' + displayDistance(sense.distance) + ' )' : '')
+    }
+    return '';
+  }
+
+  function displayDistance(dist) {
+    if(dist) {
+      return dist/5 + ' cases / ' + dist*3/10 + ' m / ' + dist + ' ft'
+    }
+    return '';
+
+  }
+
+  export { getRange, displayField, displaySense, displayDistance }

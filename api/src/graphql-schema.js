@@ -2,12 +2,29 @@ import { neo4jgraphql } from "neo4j-graphql-js";
 
 export const typeDefs = `
 type Creature {
-  caMin: Float
-  caMax: Float
+  caMin: Int
+  caMax: Int
   enName: String
-  pvMin: Float
+  pvMin: Int
   frName: String 
-  pvMax: Float
+  pvMax: Int,
+  alignment: Alignment @relation(name:"IS_ALIGNED", direction:OUT),
+  senses: [Sense] @relation(name:"HAS_SENSE", direction:OUT),
+  size: Size @relation(name:"IS_SIZE", direction:OUT),
+  type: Type @relation(name:"IS_TYPE", direction:OUT)
+}
+
+type Alignment {
+  name: String
+}
+type Sense {
+  name: String
+}
+type Size {
+  name: String
+}
+type Type {
+  name: String
 }
 
 type Query {

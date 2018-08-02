@@ -83,3 +83,10 @@ polyline {
 svg {
     max-height: 5px;
 }
+
+/* link */
+a {
+    color: inherit;
+    border: inherit;
+    text-decoration: inherit;
+}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Link } from 'react-router-dom'
 
 import CreatureList from './creatures-list/index';
 import CreatureFile from './creature-file/index';
@@ -9,7 +9,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Ø</h1>
+          <Link to={'/'}><h1 className="App-title">Ø</h1></Link>
         </header>
         <div className="page">
           <Switch>

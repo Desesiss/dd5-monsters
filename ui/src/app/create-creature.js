@@ -5,6 +5,10 @@ import gql from "graphql-tag";
 import Button from './components/button'
 import {displayField} from './utilities/index';
 
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+
 const CREATE_CREA_MUTATION = gql`
 mutation CreateCreature(
     $caMin: Int,
@@ -28,6 +32,9 @@ class CreateCreature extends Component {
         super(props);
         this.onChange = this.onChange.bind(this);
         this.onCreated = this.onCreated.bind(this);
+        this.validation = this.validation.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.handleClose = this.handleClose.bind(this);
 
         this.state = {
             caMin: 0,
@@ -35,19 +42,43 @@ class CreateCreature extends Component {
             enName: '',
             pvMin: 0,
             frName: '',
-            pvMax: 0
+            pvMax: 0,
+            open: false,
+            message: ''
         };
       }
 
-    onChange(name){
+    handleClick (message) {
+        console.log('handleClick')
+        this.setState({ open: true, message: message });
+    };
+
+    handleClose (event, reason) {
+        if (reason === 'clickaway') {
+        return;
+        }
+        this.setState({ open: false });
+    };
+
+    onChange (name) {
         return (event) => {
             this.setState({
                 [name]: event.target.value
             });
         }
-    }
+    };
     onCreated(data){
         this.props.history.push(`/file/${data.CreateCreature.enName}`)
+    }
+    validation(){
+        let errors = [];
+        if(!this.state.frName){
+            errors.push({field:'frName', error:'Veuillez renseigner ce champ'})
+        }
+        if(!this.state.enName){
+            errors.push({field:'enName', error:'Veuillez renseigner ce champ'})
+        }
+        return errors;
     }
 
     render(){
@@ -75,19 +106,47 @@ class CreateCreature extends Component {
                    
                     (createCreature, { data }) => {
                         function onSubmit(){
-                            createCreature({ variables: { 
-                                caMin: this.state.caMin,
-                                caMax: this.state.caMax,
-                                enName: this.state.enName,
-                                pvMin: this.state.pvMin,
-                                frName: this.state.frName,
-                                pvMax: this.state.pvMax
-                            } });
+                            let errors = this.validation();
+                            if(errors.length === 0){
+                                createCreature({ variables: { 
+                                    caMin: this.state.caMin,
+                                    caMax: this.state.caMax,
+                                    enName: this.state.enName,
+                                    pvMin: this.state.pvMin,
+                                    frName: this.state.frName,
+                                    pvMax: this.state.pvMax
+                                } });
+                            }
+                            else {
+                                console.log('handleClick', errors)
+                                this.handleClick(errors)
+                            }
                         }
                         return (<Button onClick={onSubmit.bind(this)}>Créer</Button>)
                     }
                 }
             </Mutation>
+            <Snackbar
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                }}
+                open={this.state.open}
+                autoHideDuration={6000}
+                onClose={this.handleClose}
+                ContentProps={{
+                    'aria-describedby': 'message-id',
+                }}
+                message={<span id="message-id">Erreur de validation</span>}
+                action={[
+                    <IconButton
+                      onClick={this.handleClose}
+                    >
+                      <CloseIcon />
+                    </IconButton>,
+                ]}
+            />
+                
         </div>
     );
     }

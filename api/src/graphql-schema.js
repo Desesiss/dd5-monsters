@@ -43,6 +43,7 @@ type Query {
         "MATCH (c:Creature) WHERE toLower(c.enName) = toLower($enName) RETURN c"
     ),
 }
+
 `;
 
 export const resolvers = {

@@ -75,6 +75,11 @@ input:focus {
     outline-style: none;
 }
 
+.field-value input
+{
+    border-bottom: solid #b2b1b1 1px;
+}
+
 /* Polyline (creature card) */
 polyline {
     fill:#922610;
@@ -87,6 +92,6 @@ svg {
 /* link */
 a {
     color: inherit;
-    border: inherit;
-    text-decoration: inherit;
+    border: none;
+    text-decoration: none;
 }

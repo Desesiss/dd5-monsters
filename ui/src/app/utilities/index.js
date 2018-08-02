@@ -8,11 +8,25 @@ function getRange(min, max) {
     }
   }
 
-  function displayField(label, value){
+  function displayField(label, value, params){
+    // If params is undefined
+    if(!params){
+      params = {
+        isEdit: false,
+        onChange: () => {}
+      }
+    }
     return(
       <div className='field'>
         <div className='field-label'>{label}</div>
-        <div className='field-value'>{value}</div>
+        {
+          <div className='field-value'> 
+            {params.isEdit ?  
+              <input type="text" value={value} onChange={params.onChange} /> // edit mode
+              : value // consult mode
+            }
+          </div>
+        }
       </div>
     );
   }

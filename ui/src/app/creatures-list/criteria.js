@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Button from '../components/button';
 
 class Search extends Component {
   constructor(props) {
@@ -21,7 +20,7 @@ class Search extends Component {
 
   _handleKeyPress(e){
     if (e.key === 'Enter') {
-      this. _executeSearch();
+      this._executeSearch();
     }
   }
 

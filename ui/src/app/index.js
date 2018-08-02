@@ -3,6 +3,7 @@ import { Switch, Route, Link } from 'react-router-dom'
 
 import CreatureList from './creatures-list/index';
 import CreatureFile from './creature-file/index';
+import CreateCreature from './create-creature';
 import NotFound from './not-found';
 
 class App extends Component {
@@ -16,6 +17,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={CreatureList} />
             <Route exact path="/file/:enName" component={CreatureFile} />
+            <Route exact path="/create" component={CreateCreature} />
             <Route component={NotFound} />
           </Switch>
         </div>

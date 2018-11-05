@@ -4,7 +4,8 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
 import { Link } from 'react-router-dom'
-import Button from '../components/button';
+// import Button from '../components/button';
+import Button from '@material-ui/core/Button';
 
 import CreatureResults from './results'
 import CreatureCriteria from './criteria'
@@ -39,7 +40,7 @@ class CreatureList extends React.Component {
           return (
             <div>
               <CreatureCriteria filter={filter} _executeSearch={(newFilter) => refetch({filter: newFilter, first: 10, offset: 0})}/>
-              <Button><Link to='/create'>Créer</Link></Button>
+              <Button component={Link} to='/create'>Créer</Button>
               <CreatureResults {...this.props} results={data.creatures} />
             </div>
           );

@@ -49,7 +49,6 @@ class CreateCreature extends Component {
       }
 
     handleClick (message) {
-        console.log('handleClick')
         this.setState({ open: true, message: message });
     };
 
@@ -118,7 +117,6 @@ class CreateCreature extends Component {
                                 } });
                             }
                             else {
-                                console.log('handleClick', errors)
                                 this.handleClick(errors)
                             }
                         }

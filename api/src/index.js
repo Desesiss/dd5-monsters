@@ -1,11 +1,11 @@
 import { typeDefs, resolvers } from "./graphql-schema";
 import { ApolloServer, gql, makeExecutableSchema } from "apollo-server";
-import { v1 as neo4j } from "neo4j-driver";
-import { augmentSchema } from "neo4j-graphql-js";
+//import { v1 as neo4j } from "neo4j-driver";
+//import { augmentSchema } from "neo4j-graphql-js";
 import dotenv from "dotenv";
 
 dotenv.config();
-
+/*
 const schema = makeExecutableSchema({
   typeDefs,
   resolvers
@@ -30,7 +30,7 @@ const server = new ApolloServer({
   // remove schema and uncomment typeDefs and resolvers above to use original (unaugmented) schema
   schema: augmentedSchema
 });
-
+*/
 server.listen(process.env.GRAPHQL_LISTEN_PORT, '0.0.0.0').then(({ url }) => {
   console.log(`GraphQL API ready at ${url}`);
 });

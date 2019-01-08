@@ -1,0 +1,25 @@
+{
+  "name": "dd5-monsters",
+  "version": "1.0.0",
+  "description": "This project has been started from GRANDstack Starter (https://github.com/grand-stack/grand-stack-starter)",
+  "main": "index.js",
+  "scripts": {
+    "client": "cd ui && npm start",
+    "server": "cd api && npm start",
+    "start": "concurrently --kill-others \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Desesiss/dd5-monsters.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Desesiss/dd5-monsters/issues"
+  },
+  "homepage": "https://github.com/Desesiss/dd5-monsters#readme",
+  "devDependencies": {
+    "concurrently": "^4.1.0"
+  }
+}

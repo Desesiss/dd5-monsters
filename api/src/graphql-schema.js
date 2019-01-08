@@ -1,5 +1,5 @@
-import { neo4jgraphql } from "neo4j-graphql-js";
-
+//import { neo4jgraphql } from "neo4j-graphql-js";
+// TODO : rewrite or delete
 export const typeDefs = `
 type Creature {
   caMin: Int

@@ -6,8 +6,9 @@ import gql from "graphql-tag";
 import CreatureFileData from './file';
 
 const CREA_GET_QUERY = gql`
-  query GetCreature($enName: String!) {
-    getCreature(enName: $enName) {
+  query GetCreature($id: Int!) {
+    getCreature(id: $id) {
+      id
       frName
       enName
       pvMin

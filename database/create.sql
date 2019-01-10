@@ -1,22 +1,22 @@
 CREATE TABLE Morality (
 	code	char(3) PRIMARY KEY,
 	name	varchar(100) NOT NULL,
-	description varchar(500)
+	description varchar(2000)
 );
 CREATE TABLE Attitude (
 	code	char(3) PRIMARY KEY,
 	name	varchar(100) NOT NULL,
-	description varchar(500)
+	description varchar(2000)
 );
 CREATE TABLE Sense (
 	code	char(3) PRIMARY KEY,
 	name	varchar(100) NOT NULL,
-	description varchar(500)
+	description varchar(2000)
 );
 CREATE TABLE Size_Category (
 	code	char(3) PRIMARY KEY,
 	name	varchar(100) NOT NULL,
-	description varchar(500)
+	description varchar(2000)
 );
 CREATE TABLE Type_Category (
 	code	char(3) PRIMARY KEY,
@@ -26,7 +26,7 @@ CREATE TABLE Type_Category (
 CREATE TABLE Type_Tag (
 	id	bigint PRIMARY KEY,
 	name	varchar(100) NOT NULL,
-	description varchar(500)
+	description varchar(2000)
 );
 
 CREATE TABLE Creature (

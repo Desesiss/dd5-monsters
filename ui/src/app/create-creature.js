@@ -10,21 +10,20 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
 const CREATE_CREA_MUTATION = gql`
-mutation CreateCreature(
+mutation createCreature(
     $caMin: Int,
     $caMax: Int,
     $enName: String!,
     $pvMin: Int,
     $frName: String!,
     $pvMax: Int) {
-    CreateCreature(
+    createCreature(
         caMin: $caMin
         caMax: $caMax
         enName: $enName
         pvMin: $pvMin
         frName: $frName
-        pvMax: $pvMax) 
-        { enName }
+        pvMax: $pvMax)
   }`;
 
 class CreateCreature extends Component {
@@ -108,12 +107,12 @@ class CreateCreature extends Component {
                             let errors = this.validation();
                             if(errors.length === 0){
                                 createCreature({ variables: { 
-                                    caMin: this.state.caMin,
-                                    caMax: this.state.caMax,
+                                    caMin: parseInt(this.state.caMin),
+                                    caMax: parseInt(this.state.caMax),
                                     enName: this.state.enName,
-                                    pvMin: this.state.pvMin,
+                                    pvMin: parseInt(this.state.pvMin),
                                     frName: this.state.frName,
-                                    pvMax: this.state.pvMax
+                                    pvMax: parseInt(this.state.pvMax)
                                 } });
                             }
                             else {

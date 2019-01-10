@@ -10,7 +10,6 @@ import bodyParser from 'body-parser';
 const app = express();
 
 app.use(cors());
-//app.use('/graphql', bodyParser.json());
 
 const server = new ApolloServer({
   typeDefs: schema,
@@ -22,8 +21,6 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app, path: '/graphql' });
 
-sequelize.sync().then(async () => {
-  app.listen({ port: 3001 }, () => {
-    console.log('Apollo Server on http://localhost:3001/graphql');
-  });
+app.listen({ port: 3001 }, () => {
+  console.log('Apollo Server on http://localhost:3001/graphql');
 });

@@ -2,11 +2,11 @@ import { gql } from 'apollo-server-express';
 
 export default gql`
 type Creature {
-  caMin: Int
-  caMax: Int
-  enName: String
-  pvMin: Int
-  frName: String 
+  caMin: Int,
+  caMax: Int,
+  enName: String,
+  pvMin: Int,
+  frName: String, 
   pvMax: Int,
   alignment: Alignment,
   senses: [Sense],
@@ -35,8 +35,21 @@ type Query {
     ): [Creature],
 
     getCreature(
-      enName: String!
+      id: Int!
     ): [Creature]
+}
+
+type Mutation {
+    createCreature(
+      caMin: Int,
+      caMax: Int,
+      enName: String,
+      pvMin: Int,
+      frName: String,
+      pvMax: Int,
+      morality_code: String,
+      attitude_code: String,
+      size_code: String): Int
 }
 
 `;

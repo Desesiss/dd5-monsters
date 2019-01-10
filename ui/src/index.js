@@ -10,7 +10,7 @@ import { BrowserRouter } from 'react-router-dom'
 import './styles/index.css';
 
 const client = new ApolloClient({
-    uri: process.env.REACT_APP_GRAPHQL_URI
+    uri: process.env.REACT_APP_GRAPHQL_URI // server URIh
 })
 
 const Main = () => (

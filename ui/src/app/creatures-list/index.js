@@ -1,8 +1,6 @@
 import React from "react";
 import { Query } from "react-apollo";
-
 import gql from "graphql-tag";
-
 import { Link } from 'react-router-dom'
 // import Button from '../components/button';
 import Button from '@material-ui/core/Button';
@@ -12,7 +10,7 @@ import CreatureCriteria from './criteria'
 
 const CREA_SEARCH_QUERY = gql`
   query CreatureFilterQuery($filter: String!, $first: Int!, $offset: Int!) {
-    creatures(filter: $filter, first: $first, offset: $offset) {
+    getCreatures(filter: $filter, first: $first, offset: $offset) {
       frName
       enName
       pvMin
@@ -41,7 +39,7 @@ class CreatureList extends React.Component {
             <div>
               <CreatureCriteria filter={filter} _executeSearch={(newFilter) => refetch({filter: newFilter, first: 10, offset: 0})}/>
               <Button component={Link} to='/create'>Créer</Button>
-              <CreatureResults {...this.props} results={data.creatures} />
+              <CreatureResults {...this.props} results={data.getCreatures} />
             </div>
           );
         }}

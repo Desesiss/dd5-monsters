@@ -30,7 +30,7 @@ CREATE TABLE Type_Tag (
 );
 
 CREATE TABLE Creature (
-	id	bigint PRIMARY KEY,
+	id	bigserial PRIMARY KEY,
 	frName	varchar(100) NOT NULL UNIQUE,
 	enName	varchar(100) UNIQUE,
 	caMin	integer,

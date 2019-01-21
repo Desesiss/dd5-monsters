@@ -2,19 +2,7 @@
 export default {
     Query: {
       getCreatures: async (parent, {filter, first, offset}, {models}) => {
-        return await models.Creature.findAll({
-          attributes: [
-            'id', 
-            ['frname', 'frName'], 
-            ['enname', 'enName'], 
-            ['camin', 'caMin'], 
-            ['camax', 'caMax'], 
-            ['pvmin', 'pvMin'], 
-            ['pvmax', 'pvMax'],
-            'morality_code',
-            'size_code',
-            'attitude_code'
-          ]});
+        return await models.Creature.findAll();
       },
       getCreature: async (parent, {id}, {models}) => {
         return await models.Creature.findById(id);

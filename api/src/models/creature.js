@@ -6,31 +6,34 @@ import Size from './size';
 
 const creature = (sequelize, DataTypes) => {
     const Creature = sequelize.define('creature', {
-      frname: {
-        type: DataTypes.STRING(100)
-      },
-      /*id: {
+      id: {
         type: DataTypes.BIGINT,
         primaryKey: true,
-        autoIncrement: true 
-      },*/
-      frname: {
-        type: DataTypes.STRING(100)
+        autoIncrement: true
       },
-      enname: {
-        type: DataTypes.STRING(100)
+      frName: {
+        type: DataTypes.STRING(100),
+        field: 'frname'
       },
-      camin: {
-        type: DataTypes.INTEGER
+      enName: {
+        type: DataTypes.STRING(100),
+        field: 'enname'
       },
-      camax: {
-        type: DataTypes.INTEGER
+      caMin: {
+        type: DataTypes.INTEGER,
+        field: 'camin'
+      },
+      caMax: {
+        type: DataTypes.INTEGER,
+        field: 'camax'
       }, 
-      pvmin: {
-        type: DataTypes.INTEGER
+      pvMin: {
+        type: DataTypes.INTEGER,
+        field: 'pvmin'
       },	
-      pvmax: {
-        type: DataTypes.INTEGER
+      pvMax: {
+        type: DataTypes.INTEGER,
+        field: 'pvmax'
       },/*
       morality_code: {
         type: DataTypes.STRING(3),

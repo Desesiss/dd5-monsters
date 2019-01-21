@@ -11,6 +11,7 @@ import CreatureCriteria from './criteria'
 const CREA_SEARCH_QUERY = gql`
   query CreatureFilterQuery($filter: String!, $first: Int!, $offset: Int!) {
     getCreatures(filter: $filter, first: $first, offset: $offset) {
+      id
       frName
       enName
       pvMin

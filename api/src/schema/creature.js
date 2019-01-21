@@ -2,16 +2,16 @@ import { gql } from 'apollo-server-express';
 
 export default gql`
 type Creature {
+  id : ID,
+  frName: String, 
+  enName: String,
   caMin: Int,
   caMax: Int,
-  enName: String,
   pvMin: Int,
-  frName: String, 
   pvMax: Int,
-  alignment: Alignment,
-  senses: [Sense],
-  size: Size,
-  type: Type
+  attitude_code: String,
+  morality_code: String,
+  size_code: String
 }
 
 type Alignment {
@@ -43,9 +43,9 @@ type Mutation {
     createCreature(
       caMin: Int,
       caMax: Int,
-      enName: String,
+      enName: String!,
       pvMin: Int,
-      frName: String,
+      frName: String!,
       pvMax: Int,
       morality_code: String,
       attitude_code: String,

@@ -73,15 +73,15 @@ class CreatureResults extends React.Component {
       </TableCell>
     );
   }
-  renderCellContent(enName, value){
+  renderCellContent(id, value){
     return(
         <TableCell component="th" scope="row">
           {value}
         </TableCell>
     );
   }
-  onClickRow(enName){
-    this.props.history.push(`/file/${enName}`)
+  onClickRow(id){
+    this.props.history.push(`/file/${id}`)
   }
   render() {
     const { order, orderBy } = this.state;
@@ -102,11 +102,11 @@ class CreatureResults extends React.Component {
                     .sort(getSorting(order, orderBy))
                     .map(n => {
                         return (
-                            <TableRow className='clickable' key={n.id} onClick={()=> this.onClickRow(n.enName)}>
-                                {this.renderCellContent(n.enName, n.frName)}
-                                {this.renderCellContent(n.enName, n.enName)}
-                                {this.renderCellContent(n.enName, getRange(n.pvMin, n.pvMax))}
-                                {this.renderCellContent(n.enName, getRange(n.caMin, n.caMax))}
+                            <TableRow className='clickable' key={n.id} onClick={()=> this.onClickRow(n.id)}>
+                                {this.renderCellContent(n.id, n.frName)}
+                                {this.renderCellContent(n.id, n.enName)}
+                                {this.renderCellContent(n.id, getRange(n.pvMin, n.pvMax))}
+                                {this.renderCellContent(n.id, getRange(n.caMin, n.caMax))}
                             </TableRow>
                         );
                     })}

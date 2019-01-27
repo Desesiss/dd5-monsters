@@ -4,7 +4,7 @@ export default {
       getCreatures: async (parent, {filter, first, offset}, {models}) => {
         return await models.Creature.findAll();
       },
-      getCreature: async (parent, {id}, {models}) => {
+      getCreature: async (parent, {id}, {models}) => { 
         return await models.Creature.findById(id);
       },
     },

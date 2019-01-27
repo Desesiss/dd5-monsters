@@ -9,12 +9,15 @@ export default {
         attitudes.forEach(att => {
             moralities.forEach( moral => {
               alignments.push({
-                code: att.code + ' ' + moralities.code,
+                code: att.code + '-' + moralities.code,
                 name: att.name + ' ' + moralities.name,
                 descriptions: [att.description, moralities.description]
               });
             });
         });
+      },
+      getSize: async (parent, {}, {models}) => {
+        return await models.Size.findAll();
       }
     }
   };

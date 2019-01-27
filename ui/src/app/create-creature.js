@@ -16,14 +16,18 @@ mutation createCreature(
     $enName: String!,
     $pvMin: Int,
     $frName: String!,
-    $pvMax: Int) {
+    $pvMax: Int,
+    $alignment_code: String,
+    $size_code: String) {
     createCreature(
         caMin: $caMin
         caMax: $caMax
         enName: $enName
         pvMin: $pvMin
         frName: $frName
-        pvMax: $pvMax)
+        pvMax: $pvMax,
+        alignment_code: $alignment_code,
+        size_code: $size_code)
   }`;
 
 class CreateCreature extends Component {
@@ -43,7 +47,9 @@ class CreateCreature extends Component {
             frName: '',
             pvMax: 0,
             open: false,
-            message: ''
+            message: '',
+            alignment_code: null,
+            size_code: null
         };
       }
 
@@ -66,7 +72,7 @@ class CreateCreature extends Component {
         }
     };
     onCreated(data){
-        this.props.history.push(`/file/${data.CreateCreature.enName}`)
+        this.props.history.push(`/file/${data.CreateCreature.id}`)
     }
     validation(){
         let errors = [];
@@ -86,8 +92,8 @@ class CreateCreature extends Component {
                 <h3>{displayField('Nom anglais', this.state.enName, {isEdit:true, onChange:this.onChange('enName')})}</h3>
                 <div><svg><polyline points="0,0 360,2.5 0,5" ></polyline></svg></div>
                 {displayField('Type', this.state.type, {isEdit:true, onChange:this.onChange('type')})}
-                {displayField('Taille', this.state.taille, {isEdit:true, onChange:this.onChange('taille')})}
-                {displayField('Alignement', this.state.alignment, {isEdit:true, onChange:this.onChange('alignment')})}
+                {displayField('Taille', this.state.size_code, {isEdit:true, onChange:this.onChange('size_code')})}
+                {displayField('Alignement', this.state.alignment_code, {isEdit:true, onChange:this.onChange('alignment_code')})}
                 <div><svg><polyline points="0,0 360,2.5 0,5" ></polyline></svg></div>
                 {displayField('Points de vie min', this.state.pvMin, {isEdit:true, onChange:this.onChange('pvMin')})}
                 {displayField('Points de vie max', this.state.pvMax, {isEdit:true, onChange:this.onChange('pvMax')})}
@@ -112,7 +118,9 @@ class CreateCreature extends Component {
                                     enName: this.state.enName,
                                     pvMin: parseInt(this.state.pvMin),
                                     frName: this.state.frName,
-                                    pvMax: parseInt(this.state.pvMax)
+                                    pvMax: parseInt(this.state.pvMax),
+                                    size_code: this.state.size_code,
+                                    alignment_code: this.state.alignment_code
                                 } });
                             }
                             else {

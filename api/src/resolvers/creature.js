@@ -1,8 +1,18 @@
+import {sequelize} from '../models';
 
 export default {
     Query: {
       getCreatures: async (parent, {filter, first, offset}, {models}) => {
-        return await models.Creature.findAll();
+        return await models.Creature.findAll({
+          offset: offset, 
+          limit: first,
+          where: {
+            $or: [
+              {frname: sequelize.where(sequelize.fn('LOWER', sequelize.col('frname')), 'LIKE', '%' + filter + '%')},
+              {enname: sequelize.where(sequelize.fn('LOWER', sequelize.col('enname')), 'LIKE', '%' + filter + '%')}
+            ] 
+          }
+        });
       },
       getCreature: async (parent, {id}, {models}) => { 
         let creature = await models.Creature.findById(id);

@@ -41,6 +41,8 @@ export default {
           attitude_code: creature.attitude_code,
           size_code: creature.size_code
           // TODO: type_code
+        }).then(creature => {
+          return creature.id;
         });
       },
     }

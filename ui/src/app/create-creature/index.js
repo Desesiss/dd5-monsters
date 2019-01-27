@@ -87,7 +87,7 @@ class CreateCreature extends Component {
         }
     };
     onCreated(data){
-        this.props.history.push(`/file/${data.CreateCreature.id}`)
+        this.props.history.push(`/file/${data.createCreature}`)
     }
     validation(){
         let errors = {};
@@ -108,7 +108,6 @@ class CreateCreature extends Component {
                         if (loading) return <p>Loading...</p>;
                         if (error) return <p>Error</p>;
                         else 
-                        console.log('state !', this.state)
                         return <div className='forms'>
                             <TextField
                                 error={this.state.errors && this.state.errors['frName']}
@@ -238,7 +237,6 @@ class CreateCreature extends Component {
                     onCompleted={this.onCreated} // redirect to detail page once completed
                 >
                 {   
-                   
                     (createCreature, { data }) => {
                         function onSubmit(){
                             let errors = this.validation();
@@ -250,10 +248,10 @@ class CreateCreature extends Component {
                                     pvMin: parseInt(this.state.pvMin),
                                     frName: this.state.frName,
                                     pvMax: parseInt(this.state.pvMax),
-                                    size_code: this.state.size_code == '' ? null : this.state.size_code,
-                                    type_code: this.state.type_code == '' ? null : this.state.type_code,
-                                    attitude_code: this.state.attitude_code == '' ? null : this.state.attitude_code,
-                                    morality_code: this.state.morality_code == '' ? null : this.state.morality_code
+                                    size_code: this.state.size_code === '' ? null : this.state.size_code,
+                                    type_code: this.state.type_code === '' ? null : this.state.type_code,
+                                    attitude_code: this.state.attitude_code === '' ? null : this.state.attitude_code,
+                                    morality_code: this.state.morality_code === '' ? null : this.state.morality_code
                                 } });
                             }
                             else {

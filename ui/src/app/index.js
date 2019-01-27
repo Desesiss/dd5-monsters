@@ -3,7 +3,7 @@ import { Switch, Route, Link } from 'react-router-dom'
 
 import CreatureList from './creatures-list/index';
 import CreatureFile from './creature-file/index';
-import CreateCreature from './create-creature';
+import CreateCreature from './create-creature/index';
 import NotFound from './not-found';
 
 class App extends Component {

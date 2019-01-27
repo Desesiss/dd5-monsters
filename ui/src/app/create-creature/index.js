@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 
-import Button from './components/button'
-import {displayField} from './utilities/index';
+import Button from '../components/button'
+import {displayField} from '../utilities/index';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';

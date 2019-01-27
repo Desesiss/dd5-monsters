@@ -47,8 +47,7 @@ type Mutation {
       pvMin: Int,
       frName: String!,
       pvMax: Int,
-      morality_code: String,
-      attitude_code: String,
+      alignment_code: String,
       size_code: String): Int
 }
 

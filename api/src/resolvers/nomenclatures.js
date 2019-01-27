@@ -10,7 +10,7 @@ export default {
             moralities.forEach( moral => {
               alignments.push({
                 code: att.code + '-' + moralities.code,
-                name: att.name + ' ' + moralities.name,
+                label: att.label + ' ' + moralities.label,
                 descriptions: [att.description, moralities.description]
               });
             });

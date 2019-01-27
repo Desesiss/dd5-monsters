@@ -18,10 +18,10 @@ function getSorting(order, orderBy) {
 }
 
 const tableHead = [
-  {name:'frName', title:'Nom francais'},
-  {name:'enName', title:'Nom anglais'},
-  {name:'pv', title:'PV'},
-  {name:'ca', title:'CA'},
+  {label:'frName', title:'Nom francais'},
+  {label:'enName', title:'Nom anglais'},
+  {label:'pv', title:'PV'},
+  {label:'ca', title:'CA'},
 ]
 
 class CreatureResults extends React.Component {
@@ -50,12 +50,12 @@ class CreatureResults extends React.Component {
     this.setState({ order, orderBy });
   };
 
-  renderCellHead({name, title}){
+  renderCellHead({label, title}){
     const { order, orderBy } = this.state;
     return(
       <TableCell
-        key={name}
-        sortDirection={orderBy === name ? order : false}
+        key={label}
+        sortDirection={orderBy === label ? order : false}
       >
         <Tooltip
           title="Trier"
@@ -63,9 +63,9 @@ class CreatureResults extends React.Component {
           enterDelay={300}
         >
           <TableSortLabel
-            active={orderBy === name}
+            active={orderBy === label}
             direction={order}
-            onClick={() => this.handleSortRequest(name)}
+            onClick={() => this.handleSortRequest(label)}
           >
             {title}
           </TableSortLabel>

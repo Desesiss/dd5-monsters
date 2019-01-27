@@ -4,7 +4,7 @@ const attitude = (sequelize, DataTypes) => {
         type: DataTypes.STRING(3),
         primaryKey: true
       },
-      name: {
+      label: {
         type: DataTypes.STRING(100)
       },
       description: {

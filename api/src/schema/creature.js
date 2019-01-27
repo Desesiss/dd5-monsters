@@ -10,20 +10,33 @@ type Creature {
   pvMin: Int,
   pvMax: Int,
   alignment: String,
-  size: String
+  size: String,
+  type: String,
+  senses: [String]
+  skills: [String]
+  languages: [String]
+  speed: Int
+  strength: Int
+  dexterity: Int
+  constitution: Int 
+  intelligence: Int 
+  wisdom: Int 
+  charisma: Int 
+  challengeRating: String 
+  savingThrows: [String]
+  vulnerabilities: [String]
+  immunities: [String]
+  resistances: [String]
+  conditions: [String]
+  specialTraits: [Reference]
+  actions: [Reference]
+  reactions: [Reference]
+  legendaryActions: [Reference]
+  description: String
 }
-
-type Alignment {
-  name: String
-}
-type Sense {
-  name: String
-}
-type Size {
-  name: String
-}
-type Type {
-  name: String
+type Reference {
+  label: String,
+  description: String
 }
 
 type Query {

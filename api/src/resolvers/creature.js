@@ -20,11 +20,11 @@ export default {
         let attitudes = await models.Attitude.findAll();
         let sizes = await models.Size.findAll();
         // Alignment = attitude + morality
-        let attitude = creature.attitude_code == null ? null : attitudes.find(item => {return item.code == creature.attitude_code})['name'];
-        let morality = creature.morality_code == null ? null : moralities.find(item => {return item.code == creature.morality_code})['name'];
+        let attitude = creature.attitude_code == null ? null : attitudes.find(item => {return item.code == creature.attitude_code})['label'];
+        let morality = creature.morality_code == null ? null : moralities.find(item => {return item.code == creature.morality_code})['label'];
         creature.alignment = (attitude == null ? '' : attitude + ' ') + (morality == null ? '' : morality)
         // Size
-        creature.size = creature.size_code == null ? null : sizes.find(item => {return item.code == creature.size_code})['name'];
+        creature.size = creature.size_code == null ? null : sizes.find(item => {return item.code == creature.size_code})['label'];
         return creature;
       },
     },

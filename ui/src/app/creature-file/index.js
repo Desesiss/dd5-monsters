@@ -17,6 +17,28 @@ const CREA_GET_QUERY = gql`
       caMax
       alignment
       size
+      type
+      senses
+      skills
+      languages
+      speed 
+      strength 
+      dexterity 
+      constitution 
+      intelligence 
+      wisdom 
+      charisma 
+      challengeRating 
+      savingThrows
+      vulnerabilities
+      immunities
+      resistances
+      conditions
+      specialTraits { label, description }
+      actions { label, description }
+      reactions { label, description }
+      legendaryActions { label, description }
+      description
     }
   }
 `
@@ -24,7 +46,6 @@ class CreatureFile extends React.Component {
 
   render() {
     const id = this.props.match.params.id ;
-    console.log('props query', parseInt(id));
     
     return (
         parseInt(id) &&

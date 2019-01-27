@@ -66,10 +66,10 @@ class CreateCreature extends Component {
         this.setState({ open: false });
     };
 
-    handleChange (name) {
+    handleChange (label) {
         return (event) => {
             this.setState({
-                [name]: event.target.value
+                [label]: event.target.value
             });
         }
     };
@@ -88,16 +88,16 @@ class CreateCreature extends Component {
     }
 
     render(){
-        const sizes = [{code: null, name: ''}, {code: 'PET', name: 'petite'}, {code:'TPE', name:'très petite'}];
-        const alignments = [{code: null, name: ''}, {code: 'MAA-MII', name: 'chaotic neutre'}, {code:'LLL-BBB', name:'loyal bon'}];
-        const types = [{code: null, name: ''}, {code: 'HUM', name: 'humanoide'}, {code:'DEM', name:'démon'}];
+        const sizes = [{code: null, label: ''}, {code: 'PET', label: 'petite'}, {code:'TPE', label:'très petite'}];
+        const alignments = [{code: null, label: ''}, {code: 'MAA-MII', label: 'chaotic neutre'}, {code:'LLL-BBB', label:'loyal bon'}];
+        const types = [{code: null, label: ''}, {code: 'HUM', label: 'humanoide'}, {code:'DEM', label:'démon'}];
 
         return (
             <div className='forms'>
                 <TextField
                     error={this.state.errors && this.state.errors['frName']}
                     required
-                    id="fr-name"
+                    id="fr-label"
                     label="Nom francais"
                     value={this.state.frName}
                     onChange={this.handleChange('frName')}
@@ -106,7 +106,7 @@ class CreateCreature extends Component {
                 <TextField
                     error={this.state.errors && this.state.errors['enName']}
                     required
-                    id="en-name"
+                    id="en-label"
                     label="Nom anglais"
                     value={this.state.enName}
                     onChange={this.handleChange('enName')}
@@ -126,7 +126,7 @@ class CreateCreature extends Component {
                     >
                     {types.map(option => (
                         <option key={option.code} value={option.code}>
-                        {option.name}
+                        {option.label}
                         </option>
                     ))}
                 </TextField>
@@ -143,7 +143,7 @@ class CreateCreature extends Component {
                     >
                     {sizes.map(option => (
                         <option key={option.code} value={option.code}>
-                        {option.name}
+                        {option.label}
                         </option>
                     ))}
                 </TextField>
@@ -160,7 +160,7 @@ class CreateCreature extends Component {
                     >
                     {alignments.map(option => (
                         <option key={option.code} value={option.code}>
-                        {option.name}
+                        {option.label}
                         </option>
                     ))}
                 </TextField>
@@ -195,7 +195,7 @@ class CreateCreature extends Component {
                 />
                 <TextField
                     id="speed"
-                    label="Vitesse (m)"
+                    label="Vitesse (cases)"
                     value={this.state.speed}
                     onChange={this.handleChange('speed')}
                     margin="normal"

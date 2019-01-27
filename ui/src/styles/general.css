@@ -9,18 +9,19 @@ body {
   }
 
 .page {
-    max-width: 700;
-    margin-top: 0;
+    max-width: 700px;
+    margin-top: 0px;
     overflow-X: "auto";
     margin: "auto";
     margin: 10px;
 }
 
-
 .paragraph {
     padding: 20px 0px;
 }
-
+h2 {
+    color: #9b0000
+}
 /* Tableaux */
 .table {
     min-width: 700;
@@ -48,29 +49,26 @@ body {
 }
 
 /* Champs d'information */
-.forms{
+.forms {
     display: inline-grid;
 }
+
+.data-card {
+    display: flex;
+    flex-flow: column;
+}
+.field{
+    display: flex;
+    flex-flow: row;
+}
+.field-value{
+    padding-left: 20px;
+}
+
 /* Titres */
 h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
     margin: 0px;
-}
-
-/* Input field */
-input {
-    background-color: transparent;
-    border-style: none;
-    font-size: 1em;
-}
-
-input:focus {
-    outline-style: none;
-}
-
-.field-value input
-{
-    border-bottom: solid #b2b1b1 1px;
 }
 
 /* Polyline (creature card) */
@@ -80,6 +78,7 @@ polyline {
 }
 svg {
     max-height: 5px;
+    width: 100%
 }
 
 /* link */
@@ -88,3 +87,4 @@ a {
     border: none;
     text-decoration: none;
 }
+

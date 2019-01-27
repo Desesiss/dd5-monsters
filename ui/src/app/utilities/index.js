@@ -8,34 +8,22 @@ function getRange(min, max) {
     }
   }
 
-  function displayField(label, value, params){
-    // If params is undefined
-    if(!params){
-      params = {
-        isEdit: false,
-        onChange: () => {}
-      }
-    }
+  function displayField(label, value){
     return(
       <div className='field'>
         <div className='field-label'>{label}</div>
-        {
-          <div className='field-value'> 
-            {params.isEdit ?  
-              <input type="text" value={value} onChange={params.onChange} /> // edit mode
-              : value // consult mode
-            }
-          </div>
-        }
+          <div className='field-value'> { value ? value : '' } </div>
       </div>
     );
   }
-
-  function displaySense(sense) {
-    if(sense) {
-      return sense.name + (sense.distance ? ' (' + displayDistance(sense.distance) + ' )' : '')
-    }
-    return '';
+  function displayList(label, values){
+    return(
+      <div>
+        {values && values.length > 0 && 
+          displayField(label, values.reduce((acc, c) => {return ((acc === '' ? '' : acc + ', '))}, ''))
+        }
+      </div>
+    );
   }
 
   function displayDistance(dist) {
@@ -46,4 +34,4 @@ function getRange(min, max) {
 
   }
 
-  export { getRange, displayField, displaySense, displayDistance }
+  export { getRange, displayField, displayDistance, displayList }

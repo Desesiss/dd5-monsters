@@ -5,7 +5,17 @@ export default {
         return await models.Creature.findAll();
       },
       getCreature: async (parent, {id}, {models}) => { 
-        return await models.Creature.findById(id);
+        let creature = await models.Creature.findById(id);
+        let moralities = await models.Morality.findAll();
+        let attitudes = await models.Attitude.findAll();
+        let sizes = await models.Size.findAll();
+        // Alignment = attitude + morality
+        let attitude = creature.attitude_code == null ? null : attitudes.find(item => {return item.code == creature.attitude_code})['name'];
+        let morality = creature.morality_code == null ? null : moralities.find(item => {return item.code == creature.morality_code})['name'];
+        creature.alignment = (attitude == null ? '' : attitude + ' ') + (morality == null ? '' : morality)
+        // Size
+        creature.size = creature.size_code == null ? null : sizes.find(item => {return item.code == creature.size_code})['name'];
+        return creature;
       },
     },
     Mutation: {

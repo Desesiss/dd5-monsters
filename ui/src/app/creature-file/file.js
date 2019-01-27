@@ -12,7 +12,7 @@ class CreatureFileData extends Component {
         <h1>{frName}</h1>
         <h3>{'('+enName+')'}</h3>
         <div><svg><polyline points="0,0 360,2.5 0,5" ></polyline></svg></div>
-        <h5>{(type ? type.name : '') + ' de taille ' + (size ? size.name : '') + ', ' + (alignment ? alignment.name : '')}</h5>
+        <h5>{(type ? type : '') + (size ? ' de taille ' + size : '') + ', ' + (alignment ? alignment : '')}</h5>
         <div><svg><polyline points="0,0 360,2.5 0,5" ></polyline></svg></div>
         {displayField('Points de vie', getRange(pvMin, pvMax))}
         {displayField('Classe d\'armure', getRange(caMin, caMax))}

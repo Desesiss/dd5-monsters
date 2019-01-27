@@ -9,9 +9,8 @@ type Creature {
   caMax: Int,
   pvMin: Int,
   pvMax: Int,
-  attitude_code: String,
-  morality_code: String,
-  size_code: String
+  alignment: String,
+  size: String
 }
 
 type Alignment {
@@ -36,7 +35,7 @@ type Query {
 
     getCreature(
       id: Int!
-    ): [Creature]
+    ): Creature
 }
 
 type Mutation {

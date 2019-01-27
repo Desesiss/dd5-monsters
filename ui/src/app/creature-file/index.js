@@ -15,30 +15,29 @@ const CREA_GET_QUERY = gql`
       pvMax
       caMin
       caMax
-      alignment {name }
-      senses {name }
-      size {name }
-      type {name }
+      alignment
+      size
     }
   }
 `
 class CreatureFile extends React.Component {
 
   render() {
-    const enName = this.props.match.params.enName ;
+    const id = this.props.match.params.id ;
+    console.log('props query', parseInt(id));
     
     return (
-        enName !== '' &&
+        parseInt(id) &&
         <Query
         query={CREA_GET_QUERY}
-        variables= {{ enName }}
+        variables= {{ id: parseInt(id) }}
       >
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error</p>;
-            if (data.getCreature && data.getCreature.length === 1)
+            if (data.getCreature)
             {
-              return <CreatureFileData data={data.getCreature[0]}/>
+              return <CreatureFileData data={data.getCreature}/>
             }
             else {
               return <div>Aucune créature trouvée.</div>

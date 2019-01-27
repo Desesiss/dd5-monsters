@@ -16,7 +16,7 @@ class App extends Component {
         <div className="page">
           <Switch>
             <Route exact path="/" component={CreatureList} />
-            <Route exact path="/file/:enName" component={CreatureFile} />
+            <Route exact path="/file/:id" component={CreatureFile} />
             <Route exact path="/create" component={CreateCreature} />
             <Route component={NotFound} />
           </Switch>

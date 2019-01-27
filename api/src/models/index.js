@@ -29,8 +29,8 @@ const models = {
   });
 
   models.Creature.belongsTo(models.Morality, { foreignKey: 'morality_code' });
-  models.Creature.belongsTo(models.Attitude, { foreignKey: 'morality_code' });
-  models.Creature.belongsTo(models.Size, { foreignKey: 'morality_code' });
+  models.Creature.belongsTo(models.Attitude, { foreignKey: 'attitude_code' });
+  models.Creature.belongsTo(models.Size, { foreignKey: 'size_code' });
 
 
 export { sequelize, models };

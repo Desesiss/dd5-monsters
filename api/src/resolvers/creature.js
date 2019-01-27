@@ -30,11 +30,6 @@ export default {
     },
     Mutation: {
       createCreature: async (parent, creature, { models }) => {
-        let attitude = null;
-        let morality = null;
-        if(creature.alignment_code.contains('-')){
-          [attitude, morality] = creature.alignment_code.split('-');
-        }
         return await models.Creature.create({    
           frName: creature.frName,
           enName: creature.enName,
@@ -42,10 +37,10 @@ export default {
           caMax: creature.caMax,
           pvMin: creature.pvMin,
           pvMax: creature.pvMax,
-          morality_code: morality,
-          attitude_code: attitude,
+          morality_code: creature.morality_code,
+          attitude_code: creature.attitude_code,
           size_code: creature.size_code
-          // TODO: associations
+          // TODO: type_code
         });
       },
     }

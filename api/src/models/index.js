@@ -19,6 +19,7 @@ const models = {
     Attitude: sequelize.import('./attitude'),
     Morality: sequelize.import('./morality'),
     Size: sequelize.import('./size'),
+    Type: sequelize.import('./type'),
     Creature: sequelize.import('./creature')
   };
   

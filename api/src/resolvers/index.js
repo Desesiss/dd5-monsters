@@ -1,3 +1,4 @@
 import creatureResolvers from './creature';
+import referenceResolvers from './reference';
 
-export default [creatureResolvers];
+export default [creatureResolvers, referenceResolvers];

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Mutation } from "react-apollo";
+import { Mutation, Query } from "react-apollo";
 import gql from "graphql-tag";
 import isEmpty from 'lodash/isEmpty';
 
@@ -9,7 +9,15 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 
-
+const GET_REF_QUERY = gql`
+query getReferences {
+    getReferences(references: ["Size", "Morality", "Attitude", "Type"]) {
+        Size { code, label }
+        Morality { code, label }
+        Attitude { code, label }
+        Type { code, label }
+    }
+  }`;
 const CREATE_CREA_MUTATION = gql`
 mutation createCreature(
     $caMin: Int,
@@ -18,7 +26,9 @@ mutation createCreature(
     $pvMin: Int,
     $frName: String!,
     $pvMax: Int,
-    $alignment_code: String,
+    $type_code: String,
+    $attitude_code: String,
+    $morality_code: String,
     $size_code: String) {
     createCreature(
         caMin: $caMin
@@ -27,7 +37,9 @@ mutation createCreature(
         pvMin: $pvMin
         frName: $frName
         pvMax: $pvMax,
-        alignment_code: $alignment_code,
+        type_code: $type_code,
+        attitude_code: $attitude_code,
+        morality_code: $morality_code,
         size_code: $size_code)
   }`;
 
@@ -49,9 +61,10 @@ class CreateCreature extends Component {
             pvMax: 0,
             open: false,
             errors: null,
-            type_code: null,
-            alignment_code: null,
-            size_code: null
+            type_code: '',
+            attitude_code: '',
+            morality_code: '',
+            size_code: ''
         };
       }
 
@@ -88,119 +101,138 @@ class CreateCreature extends Component {
     }
 
     render(){
-        const sizes = [{code: null, label: ''}, {code: 'PET', label: 'petite'}, {code:'TPE', label:'très petite'}];
-        const alignments = [{code: null, label: ''}, {code: 'MAA-MII', label: 'chaotic neutre'}, {code:'LLL-BBB', label:'loyal bon'}];
-        const types = [{code: null, label: ''}, {code: 'HUM', label: 'humanoide'}, {code:'DEM', label:'démon'}];
 
         return (
-            <div className='forms'>
-                <TextField
-                    error={this.state.errors && this.state.errors['frName']}
-                    required
-                    id="fr-label"
-                    label="Nom francais"
-                    value={this.state.frName}
-                    onChange={this.handleChange('frName')}
-                    margin="normal"
-                />
-                <TextField
-                    error={this.state.errors && this.state.errors['enName']}
-                    required
-                    id="en-label"
-                    label="Nom anglais"
-                    value={this.state.enName}
-                    onChange={this.handleChange('enName')}
-                    margin="normal"
-                />
-                <div><svg><polyline points="0,0 360,2.5 0,5" ></polyline></svg></div>
-                <TextField
-                    id="type"
-                    select
-                    label="Type"
-                    value={this.state.type_code}
-                    onChange={this.handleChange('type_code')}
-                    SelectProps={{
-                        native: true,
-                    }}
-                    margin="normal"
-                    >
-                    {types.map(option => (
-                        <option key={option.code} value={option.code}>
-                        {option.label}
-                        </option>
-                    ))}
-                </TextField>
-                <TextField
-                    id="size"
-                    select
-                    label="Taille"
-                    value={this.state.size_code}
-                    onChange={this.handleChange('size_code')}
-                    SelectProps={{
-                        native: true,
-                    }}
-                    margin="normal"
-                    >
-                    {sizes.map(option => (
-                        <option key={option.code} value={option.code}>
-                        {option.label}
-                        </option>
-                    ))}
-                </TextField>
-                <TextField
-                    id="alignment"
-                    select
-                    label="Alignement"
-                    value={this.state.alignment_code}
-                    onChange={this.handleChange('alignment_code')}
-                    SelectProps={{
-                        native: true,
-                    }}
-                    margin="normal"
-                    >
-                    {alignments.map(option => (
-                        <option key={option.code} value={option.code}>
-                        {option.label}
-                        </option>
-                    ))}
-                </TextField>
-                <div><svg><polyline points="0,0 360,2.5 0,5" ></polyline></svg></div>
-                <TextField
-                    id="pvMin"
-                    label="Points de vie min"
-                    value={this.state.pvMin}
-                    onChange={this.handleChange('pvMin')}
-                    margin="normal"
-                />
-                <TextField
-                    id="pvMax"
-                    label="Points de vie max"
-                    value={this.state.pvMax}
-                    onChange={this.handleChange('pvMax')}
-                    margin="normal"
-                />
-                <TextField
-                    id="caMin"
-                    label="Classe d'armure min"
-                    value={this.state.caMin}
-                    onChange={this.handleChange('caMin')}
-                    margin="normal"
-                />
-                <TextField
-                    id="caMax"
-                    label="Classe d'armure max"
-                    value={this.state.caMax}
-                    onChange={this.handleChange('caMax')}
-                    margin="normal"
-                />
-                <TextField
-                    id="speed"
-                    label="Vitesse (cases)"
-                    value={this.state.speed}
-                    onChange={this.handleChange('speed')}
-                    margin="normal"
-                />
-
+                <Query query={GET_REF_QUERY}>
+                    {({ loading, error, data }) => {
+                        if (loading) return <p>Loading...</p>;
+                        if (error) return <p>Error</p>;
+                        else 
+                        console.log('state !', this.state)
+                        return <div className='forms'>
+                            <TextField
+                                error={this.state.errors && this.state.errors['frName']}
+                                required
+                                id="fr-label"
+                                label="Nom francais"
+                                value={this.state.frName}
+                                onChange={this.handleChange('frName')}
+                                margin="normal"
+                            />
+                            <TextField
+                                error={this.state.errors && this.state.errors['enName']}
+                                required
+                                id="en-label"
+                                label="Nom anglais"
+                                value={this.state.enName}
+                                onChange={this.handleChange('enName')}
+                                margin="normal"
+                            />
+                            <div><svg><polyline points="0,0 360,2.5 0,5" ></polyline></svg></div>
+                            <TextField
+                                id="type"
+                                select
+                                label="Type"
+                                value={this.state.type_code}
+                                onChange={this.handleChange('type_code')}
+                                SelectProps={{
+                                    native: true,
+                                }}
+                                margin="normal"
+                                >
+                                {data.getReferences.Type.map(option => (
+                                    <option key={option.code} value={option.code}>
+                                    {option.label}
+                                    </option>
+                                )).concat([<option key={''} value={''}></option>])}
+                            </TextField>
+                            <TextField
+                                id="size"
+                                select
+                                label="Taille"
+                                value={this.state.size_code}
+                                onChange={this.handleChange('size_code')}
+                                SelectProps={{
+                                    native: true,
+                                }}
+                                margin="normal"
+                                >
+                                {data.getReferences.Size.map(option => (
+                                    <option key={option.code} value={option.code}>
+                                    {option.label}
+                                    </option>
+                                )).concat([<option key={''} value={''}></option>])}
+                            </TextField>
+                            <TextField
+                                id="attitude"
+                                select
+                                label="Alignement - Attitude"
+                                value={this.state.attitude_code}
+                                onChange={this.handleChange('attitude_code')}
+                                SelectProps={{
+                                    native: true,
+                                }}
+                                margin="normal"
+                                >
+                                {data.getReferences.Attitude.map(option => (
+                                    <option key={option.code} value={option.code}>
+                                    {option.label}
+                                    </option>
+                                )).concat([<option key={''} value={''}></option>])}
+                            </TextField>
+                            <TextField
+                                id="morality"
+                                select
+                                label="Alignement - Moralité"
+                                value={this.state.morality_code}
+                                onChange={this.handleChange('morality_code')}
+                                SelectProps={{
+                                    native: true,
+                                }}
+                                margin="normal"
+                                >
+                                {data.getReferences.Morality.map(option => (
+                                    <option key={option.code} value={option.code}>
+                                    {option.label}
+                                    </option>
+                                )).concat([<option key={''} value={''}></option>])}
+                            </TextField>
+                            <div><svg><polyline points="0,0 360,2.5 0,5" ></polyline></svg></div>
+                            <TextField
+                                id="pvMin"
+                                label="Points de vie min"
+                                value={this.state.pvMin}
+                                onChange={this.handleChange('pvMin')}
+                                margin="normal"
+                            />
+                            <TextField
+                                id="pvMax"
+                                label="Points de vie max"
+                                value={this.state.pvMax}
+                                onChange={this.handleChange('pvMax')}
+                                margin="normal"
+                            />
+                            <TextField
+                                id="caMin"
+                                label="Classe d'armure min"
+                                value={this.state.caMin}
+                                onChange={this.handleChange('caMin')}
+                                margin="normal"
+                            />
+                            <TextField
+                                id="caMax"
+                                label="Classe d'armure max"
+                                value={this.state.caMax}
+                                onChange={this.handleChange('caMax')}
+                                margin="normal"
+                            />
+                            <TextField
+                                id="speed"
+                                label="Vitesse (cases)"
+                                value={this.state.speed}
+                                onChange={this.handleChange('speed')}
+                                margin="normal"
+                            />
                 <Mutation 
                     mutation={CREATE_CREA_MUTATION} 
                     onCompleted={this.onCreated} // redirect to detail page once completed
@@ -218,8 +250,10 @@ class CreateCreature extends Component {
                                     pvMin: parseInt(this.state.pvMin),
                                     frName: this.state.frName,
                                     pvMax: parseInt(this.state.pvMax),
-                                    size_code: this.state.size_code,
-                                    alignment_code: this.state.alignment_code
+                                    size_code: this.state.size_code == '' ? null : this.state.size_code,
+                                    type_code: this.state.type_code == '' ? null : this.state.type_code,
+                                    attitude_code: this.state.attitude_code == '' ? null : this.state.attitude_code,
+                                    morality_code: this.state.morality_code == '' ? null : this.state.morality_code
                                 } });
                             }
                             else {
@@ -250,8 +284,9 @@ class CreateCreature extends Component {
                     </IconButton>,
                 ]}
             />
-                
         </div>
+        }}
+    </Query>
     );
     }
 };

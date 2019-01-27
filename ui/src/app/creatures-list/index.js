@@ -2,7 +2,6 @@ import React from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import { Link } from 'react-router-dom'
-// import Button from '../components/button';
 import Button from '@material-ui/core/Button';
 
 import CreatureResults from './results'
@@ -38,9 +37,11 @@ class CreatureList extends React.Component {
 
           return (
             <div>
-              <CreatureCriteria filter={filter} _executeSearch={(newFilter) => refetch({filter: newFilter, first: 10, offset: 0})}/>
-              <Button component={Link} to='/create'>Créer</Button>
-              <CreatureResults {...this.props} results={data.getCreatures} />
+              <Button component={Link} to='/create' variant="contained" color="primary">Créer</Button>
+              <div className='paragraph'>
+                <CreatureCriteria filter={filter} _executeSearch={(newFilter) => refetch({filter: newFilter, first: 10, offset: 0})}/>
+                <CreatureResults {...this.props} results={data.getCreatures} />
+              </div>
             </div>
           );
         }}

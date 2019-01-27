@@ -5,7 +5,7 @@ body {
     font-family: sans-serif;
     display: flex;
     flex-flow: column;
-    background-color: #fff6f6;
+    background-color: #f9f9f9;
   }
 
 .page {
@@ -37,6 +37,8 @@ body {
 .dd-aligned{
     display: flex;
     flex-flow: row;
+    background-color: #eaeaea;
+    max-width: 20%;
 }
 
 /* Icones cliquables */
@@ -46,18 +48,9 @@ body {
 }
 
 /* Champs d'information */
-.field{
-    max-width: 300px;
-    display: flex;
-    justify-content: space-between;
+.forms{
+    display: inline-grid;
 }
-.field-label {
-    font-weight: bold
-}
-.field-value {
-
-}
-
 /* Titres */
 h1, h2, h3, h4, h5, h6 {
     font-weight: normal;

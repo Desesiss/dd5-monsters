@@ -87,7 +87,7 @@ class CreatureResults extends React.Component {
     const { order, orderBy } = this.state;
     const {results} = this.props;
     return (
-        <div className='paragraph'>
+        <div className=''>
             {results && results.length > 0 &&
                 <Paper className={'paper'}>
                 <Table className={'table'}>

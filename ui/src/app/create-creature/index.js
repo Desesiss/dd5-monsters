@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
+import isEmpty from 'lodash/isEmpty';
 
-import Button from '../components/button'
-import {displayField} from '../utilities/index';
-
+import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import TextField from '@material-ui/core/TextField';
+
 
 const CREATE_CREA_MUTATION = gql`
 mutation createCreature(
@@ -33,7 +34,7 @@ mutation createCreature(
 class CreateCreature extends Component {
     constructor(props) {
         super(props);
-        this.onChange = this.onChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.onCreated = this.onCreated.bind(this);
         this.validation = this.validation.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -47,14 +48,15 @@ class CreateCreature extends Component {
             frName: '',
             pvMax: 0,
             open: false,
-            message: '',
+            errors: null,
+            type_code: null,
             alignment_code: null,
             size_code: null
         };
       }
 
-    handleClick (message) {
-        this.setState({ open: true, message: message });
+    handleClick (errors) {
+        this.setState({ open: true, errors: errors });
     };
 
     handleClose (event, reason) {
@@ -64,7 +66,7 @@ class CreateCreature extends Component {
         this.setState({ open: false });
     };
 
-    onChange (name) {
+    handleChange (name) {
         return (event) => {
             this.setState({
                 [name]: event.target.value
@@ -75,32 +77,129 @@ class CreateCreature extends Component {
         this.props.history.push(`/file/${data.CreateCreature.id}`)
     }
     validation(){
-        let errors = [];
+        let errors = {};
         if(!this.state.frName){
-            errors.push({field:'frName', error:'Veuillez renseigner ce champ'})
+            errors['frName'] = 'Veuillez renseigner ce champ'
         }
         if(!this.state.enName){
-            errors.push({field:'enName', error:'Veuillez renseigner ce champ'})
+            errors['enName'] = 'Veuillez renseigner ce champ'
         }
         return errors;
     }
 
     render(){
+        const sizes = [{code: null, name: ''}, {code: 'PET', name: 'petite'}, {code:'TPE', name:'très petite'}];
+        const alignments = [{code: null, name: ''}, {code: 'MAA-MII', name: 'chaotic neutre'}, {code:'LLL-BBB', name:'loyal bon'}];
+        const types = [{code: null, name: ''}, {code: 'HUM', name: 'humanoide'}, {code:'DEM', name:'démon'}];
+
         return (
-            <div>
-                <h1>{displayField('Nom francais', this.state.frName, {isEdit:true, onChange:this.onChange('frName')})}</h1>
-                <h3>{displayField('Nom anglais', this.state.enName, {isEdit:true, onChange:this.onChange('enName')})}</h3>
+            <div className='forms'>
+                <TextField
+                    error={this.state.errors && this.state.errors['frName']}
+                    required
+                    id="fr-name"
+                    label="Nom francais"
+                    value={this.state.frName}
+                    onChange={this.handleChange('frName')}
+                    margin="normal"
+                />
+                <TextField
+                    error={this.state.errors && this.state.errors['enName']}
+                    required
+                    id="en-name"
+                    label="Nom anglais"
+                    value={this.state.enName}
+                    onChange={this.handleChange('enName')}
+                    margin="normal"
+                />
                 <div><svg><polyline points="0,0 360,2.5 0,5" ></polyline></svg></div>
-                {displayField('Type', this.state.type, {isEdit:true, onChange:this.onChange('type')})}
-                {displayField('Taille', this.state.size_code, {isEdit:true, onChange:this.onChange('size_code')})}
-                {displayField('Alignement', this.state.alignment_code, {isEdit:true, onChange:this.onChange('alignment_code')})}
+                <TextField
+                    id="type"
+                    select
+                    label="Type"
+                    value={this.state.type_code}
+                    onChange={this.handleChange('type_code')}
+                    SelectProps={{
+                        native: true,
+                    }}
+                    margin="normal"
+                    >
+                    {types.map(option => (
+                        <option key={option.code} value={option.code}>
+                        {option.name}
+                        </option>
+                    ))}
+                </TextField>
+                <TextField
+                    id="size"
+                    select
+                    label="Taille"
+                    value={this.state.size_code}
+                    onChange={this.handleChange('size_code')}
+                    SelectProps={{
+                        native: true,
+                    }}
+                    margin="normal"
+                    >
+                    {sizes.map(option => (
+                        <option key={option.code} value={option.code}>
+                        {option.name}
+                        </option>
+                    ))}
+                </TextField>
+                <TextField
+                    id="alignment"
+                    select
+                    label="Alignement"
+                    value={this.state.alignment_code}
+                    onChange={this.handleChange('alignment_code')}
+                    SelectProps={{
+                        native: true,
+                    }}
+                    margin="normal"
+                    >
+                    {alignments.map(option => (
+                        <option key={option.code} value={option.code}>
+                        {option.name}
+                        </option>
+                    ))}
+                </TextField>
                 <div><svg><polyline points="0,0 360,2.5 0,5" ></polyline></svg></div>
-                {displayField('Points de vie min', this.state.pvMin, {isEdit:true, onChange:this.onChange('pvMin')})}
-                {displayField('Points de vie max', this.state.pvMax, {isEdit:true, onChange:this.onChange('pvMax')})}
-                {displayField('Classe d\'armure min', this.state.caMin, {isEdit:true, onChange:this.onChange('caMin')})}
-                {displayField('Classe d\'armure max', this.state.caMax, {isEdit:true, onChange:this.onChange('caMax')})}
-                {displayField('Vitesse', this.state.speed, {isEdit:true, onChange:this.onChange('speed')})}
-                <div><svg><polyline points="0,0 360,2.5 0,5" ></polyline></svg></div>
+                <TextField
+                    id="pvMin"
+                    label="Points de vie min"
+                    value={this.state.pvMin}
+                    onChange={this.handleChange('pvMin')}
+                    margin="normal"
+                />
+                <TextField
+                    id="pvMax"
+                    label="Points de vie max"
+                    value={this.state.pvMax}
+                    onChange={this.handleChange('pvMax')}
+                    margin="normal"
+                />
+                <TextField
+                    id="caMin"
+                    label="Classe d'armure min"
+                    value={this.state.caMin}
+                    onChange={this.handleChange('caMin')}
+                    margin="normal"
+                />
+                <TextField
+                    id="caMax"
+                    label="Classe d'armure max"
+                    value={this.state.caMax}
+                    onChange={this.handleChange('caMax')}
+                    margin="normal"
+                />
+                <TextField
+                    id="speed"
+                    label="Vitesse (m)"
+                    value={this.state.speed}
+                    onChange={this.handleChange('speed')}
+                    margin="normal"
+                />
 
                 <Mutation 
                     mutation={CREATE_CREA_MUTATION} 
@@ -111,7 +210,7 @@ class CreateCreature extends Component {
                     (createCreature, { data }) => {
                         function onSubmit(){
                             let errors = this.validation();
-                            if(errors.length === 0){
+                            if(isEmpty(errors)){
                                 createCreature({ variables: { 
                                     caMin: parseInt(this.state.caMin),
                                     caMax: parseInt(this.state.caMax),
@@ -127,7 +226,7 @@ class CreateCreature extends Component {
                                 this.handleClick(errors)
                             }
                         }
-                        return (<Button onClick={onSubmit.bind(this)}>Créer</Button>)
+                        return (<Button onClick={onSubmit.bind(this)} variant="contained" color="primary">Créer</Button>)
                     }
                 }
             </Mutation>

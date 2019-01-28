@@ -30,7 +30,8 @@ export default {
     },
     Mutation: {
       createCreature: async (parent, creature, { models }) => {
-        return await models.Creature.create({    
+        return await sequelize.transaction(async (t) => {
+          await models.Creature.create({    
           frName: creature.frName,
           enName: creature.enName,
           caMin: creature.caMin,
@@ -48,7 +49,7 @@ export default {
             }})
           );
           return newCrea.id;
-        });
+        })});
       },
     }
   };

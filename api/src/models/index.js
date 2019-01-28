@@ -1,4 +1,8 @@
 import Sequelize from 'sequelize';
+import cls from 'continuation-local-storage';
+
+const namespace = cls.createNamespace('dd-monsters');
+Sequelize.useCLS(namespace);
 
 const sequelize = new Sequelize(
   process.env.DATABASE,

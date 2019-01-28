@@ -93,15 +93,11 @@ class CreatureFileData extends Component {
           specialTraits.map(item => displayField(item.label, item.value))
         }
         <div><svg><polyline points="0,0 1000,2.5 0,5" ></polyline></svg></div>
-        {actions && actions.length > 0 && 
-          <h2>Actions</h2>
-        }
+        <h2>Actions</h2>
         {actions && actions.length > 0 && 
           actions.map(item => displayField(item.label, item.value))
         }
-        {reactions && reactions.length > 0 && 
-          <h2>Réactions</h2>
-        }
+        <h2>Réactions</h2>
         {reactions && reactions.length > 0 && 
           reactions.map(item => displayField(item.label, item.value))
         }

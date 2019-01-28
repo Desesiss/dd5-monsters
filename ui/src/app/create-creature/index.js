@@ -12,6 +12,8 @@ import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
 
 const GET_REF_QUERY = gql`
 query getReferences {
@@ -132,26 +134,28 @@ class CreateCreature extends Component {
                                 margin="normal"
                             />
                             <div><svg><polyline points="0,0 360,2.5 0,5" ></polyline></svg></div>
-                            <Select
-                                multiple
-                                label="Types"
-                                value={this.state.type_codes}
-                                onChange={this.handleChange('type_codes')}
-                                input={<Input id="select-multiple-chip" />}
-                                renderValue={selected => (
-                                <div>
-                                    {selected.map(value => (
-                                    <Chip key={value} label={data.getReferences.Type.find(x => x.code === value)["label"]}/>
-                                    ))}
-                                </div>
-                                )}
-                            >
-                            {data.getReferences.Type.map(type => (
-                                <MenuItem key={type.code} value={type.code}>
-                                    {type.label}
-                                </MenuItem>
-                                ))}
-                            </Select>
+                            <FormControl>
+                                <InputLabel htmlFor="select-multiple">Types</InputLabel>
+                                    <Select
+                                        multiple
+                                        value={this.state.type_codes}
+                                        onChange={this.handleChange('type_codes')}
+                                        input={<Input id="select-multiple-chip" />}
+                                        renderValue={selected => (
+                                        <div>
+                                            {selected.map(value => (
+                                            <Chip key={value} label={data.getReferences.Type.find(x => x.code === value)["label"]}/>
+                                            ))}
+                                        </div>
+                                        )}
+                                    >
+                                    {data.getReferences.Type.map(type => (
+                                        <MenuItem key={type.code} value={type.code}>
+                                            {type.label}
+                                        </MenuItem>
+                                        ))}
+                                    </Select>
+                            </FormControl>
                             <TextField
                                 id="size"
                                 select

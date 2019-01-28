@@ -40,9 +40,14 @@ export default {
           morality_code: creature.morality_code,
           attitude_code: creature.attitude_code,
           size_code: creature.size_code
-          // TODO: type_code
-        }).then(creature => {
-          return creature.id;
+        }).then(async newCrea => {
+          await models.Creature_types.bulkCreate(
+            creature.type_codes.map(t_code => {return {
+              type_code: t_code,
+              creature_id: newCrea.id
+            }})
+          );
+          return newCrea.id;
         });
       },
     }

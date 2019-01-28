@@ -78,5 +78,6 @@ type Mutation {
       type_code: String,
       attitude_code: String,
       morality_code: String,
-      size_code: String): Int
+      size_code: String,
+      type_codes: [String]): Int
 }`];

@@ -41,14 +41,14 @@ export default {
         creature.size = creature.size_category ? creature.size_category['label'] : '';
         // Types
         creature.types = creature.type_categories ? creature.type_categories.map(t =>{return t['label']}) : [];
-        
+
         return creature;
       },
     },
     Mutation: {
       createCreature: async (parent, creature, { models }) => {
         return await sequelize.transaction(async (t) => {
-          await models.Creature.create({    
+          return await models.Creature.create({    
           frName: creature.frName,
           enName: creature.enName,
           caMin: creature.caMin,

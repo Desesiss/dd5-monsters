@@ -88,3 +88,8 @@ a {
     text-decoration: none;
 }
 
+/* Icones for pagination */
+.pagination-icons {
+    display: flex;
+    flex-flow: row nowrap;
+}

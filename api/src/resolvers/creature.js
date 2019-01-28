@@ -3,9 +3,12 @@ import {sequelize} from '../models';
 export default {
     Query: {
       getCreatures: async (parent, {filter, first, offset}, {models}) => {
-        return await models.Creature.findAll({
+        return await models.Creature.findAndCountAll({
           offset: offset, 
           limit: first,
+          order:[
+              ['frname', 'ASC'],
+          ],
           where: {
             $or: [
               {frname: sequelize.where(sequelize.fn('LOWER', sequelize.col('frname')), 'LIKE', '%' + filter + '%')},

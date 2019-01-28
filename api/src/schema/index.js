@@ -51,12 +51,17 @@ type References {
   Type: [Reference]
 }
 
+type PaginatedCreatures {
+  count: Int,
+  rows: [Creature]
+}
+
 type Query {
     getCreatures(
       filter: String,
       first: Int!,
       offset: Int!,
-    ): [Creature],
+    ): PaginatedCreatures,
 
     getCreature(
       id: Int!

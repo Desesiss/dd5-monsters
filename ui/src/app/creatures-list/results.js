@@ -5,11 +5,13 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import TablePagination from '@material-ui/core/TablePagination';
 import Tooltip from "@material-ui/core/Tooltip";
 import Paper from "@material-ui/core/Paper";
 import { TableSortLabel } from "@material-ui/core";
 
 import {getRange} from '../utilities/index';
+import TablePaginationActions from './pagination';
 
 function getSorting(order, orderBy) {
   return order === "desc"
@@ -31,13 +33,17 @@ class CreatureResults extends React.Component {
     this.renderCellHead = this.renderCellHead.bind(this);
     this.renderCellContent = this.renderCellContent.bind(this);
     this.onClickRow = this.onClickRow.bind(this);
-    
+    this.handleChangePage = this.handleChangePage.bind(this);
 
     this.state = {
       order: "asc",
       orderBy: "frName"
     };
   }
+
+  handleChangePage(event, page){
+    this.props._nextPage(this.props.numPerPage*page);
+  };
 
   handleSortRequest = property => {
     const orderBy = property;
@@ -88,7 +94,7 @@ class CreatureResults extends React.Component {
     const {results} = this.props;
     return (
         <div className=''>
-            {results && results.length > 0 &&
+            {results && results.rows && results.rows.length > 0 &&
                 <Paper className={'paper'}>
                 <Table className={'table'}>
                 <TableHead>
@@ -97,7 +103,7 @@ class CreatureResults extends React.Component {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {results
+                    {results.rows
                     .slice()
                     .sort(getSorting(order, orderBy))
                     .map(n => {
@@ -112,6 +118,16 @@ class CreatureResults extends React.Component {
                     })}
                 </TableBody>
                 </Table>
+                <TablePagination
+                  rowsPerPageOptions={[]}
+                  component="div"
+                  colSpan={5}
+                  count={this.props.results.count}
+                  rowsPerPage={this.props.numPerPage}
+                  page={this.props.page}
+                  onChangePage={this.handleChangePage}
+                  ActionsComponent={TablePaginationActions}
+                />
             </Paper>
             }
             {(results &&  results.length === 0) &&

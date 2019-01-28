@@ -10,26 +10,51 @@ import CreatureCriteria from './criteria'
 const CREA_SEARCH_QUERY = gql`
   query CreatureFilterQuery($filter: String!, $first: Int!, $offset: Int!) {
     getCreatures(filter: $filter, first: $first, offset: $offset) {
-      id
-      frName
-      enName
-      pvMin
-      pvMax
-      caMin
-      caMax
+      count
+      rows {
+        id
+        frName
+        enName
+        pvMin
+        pvMax
+        caMin
+        caMax
+      }
     }
   }
 `
+const numPerPage = 10;
 
 
 class CreatureList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.updateFilter = this.updateFilter.bind(this);
+    this.updatePagination = this.updatePagination.bind(this);
+    this.state = {
+      filter:'',
+      offset: 0
+    };
+  }
+
+  updateFilter(newF){
+    this.setState({
+      filter: newF,
+      offset: 0
+    });
+  }
+  updatePagination(newOffset){
+    this.setState({
+      offset: newOffset
+    });
+  }
 
   render() {
-    const {filter, first, offset} = {filter: '', first: 10, offset: 0};
+
     return (
       <Query
         query={CREA_SEARCH_QUERY}
-        variables={{ filter, first, offset }}
+        variables={{ filter: this.state.filter, first: numPerPage, offset: this.state.offset }}
       >
         {({ loading, error, data, refetch }) => {
           if (loading) return <p>Loading...</p>;
@@ -39,8 +64,17 @@ class CreatureList extends React.Component {
             <div>
               <Button component={Link} to='/create' variant="contained" color="primary">Créer</Button>
               <div className='paragraph'>
-                <CreatureCriteria filter={filter} _executeSearch={(newFilter) => refetch({filter: newFilter, first: 10, offset: 0})}/>
-                <CreatureResults {...this.props} results={data.getCreatures} />
+                <CreatureCriteria 
+                  filter={''} 
+                  _executeSearch={this.updateFilter}
+                />
+                <CreatureResults 
+                  {...this.props} 
+                  numPerPage={numPerPage}
+                  results={data.getCreatures}
+                  _nextPage={this.updatePagination}
+                  page={Math.ceil((numPerPage+this.state.offset) / numPerPage) - 1}
+                />
               </div>
             </div>
           );

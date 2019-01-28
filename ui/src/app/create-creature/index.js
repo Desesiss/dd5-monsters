@@ -8,6 +8,10 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
+import Input from '@material-ui/core/Input';
+import Select from '@material-ui/core/Select';
+import Chip from '@material-ui/core/Chip';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const GET_REF_QUERY = gql`
 query getReferences {
@@ -26,7 +30,7 @@ mutation createCreature(
     $pvMin: Int,
     $frName: String!,
     $pvMax: Int,
-    $type_code: String,
+    $type_codes: [String],
     $attitude_code: String,
     $morality_code: String,
     $size_code: String) {
@@ -37,7 +41,7 @@ mutation createCreature(
         pvMin: $pvMin
         frName: $frName
         pvMax: $pvMax,
-        type_code: $type_code,
+        type_codes: $type_codes,
         attitude_code: $attitude_code,
         morality_code: $morality_code,
         size_code: $size_code)
@@ -61,7 +65,7 @@ class CreateCreature extends Component {
             pvMax: 0,
             open: false,
             errors: null,
-            type_code: '',
+            type_codes: [],
             attitude_code: '',
             morality_code: '',
             size_code: ''
@@ -128,23 +132,26 @@ class CreateCreature extends Component {
                                 margin="normal"
                             />
                             <div><svg><polyline points="0,0 360,2.5 0,5" ></polyline></svg></div>
-                            <TextField
-                                id="type"
-                                select
-                                label="Type"
-                                value={this.state.type_code}
-                                onChange={this.handleChange('type_code')}
-                                SelectProps={{
-                                    native: true,
-                                }}
-                                margin="normal"
-                                >
-                                {data.getReferences.Type.map(option => (
-                                    <option key={option.code} value={option.code}>
-                                    {option.label}
-                                    </option>
-                                )).concat([<option key={''} value={''}></option>])}
-                            </TextField>
+                            <Select
+                                multiple
+                                label="Types"
+                                value={this.state.type_codes}
+                                onChange={this.handleChange('type_codes')}
+                                input={<Input id="select-multiple-chip" />}
+                                renderValue={selected => (
+                                <div>
+                                    {selected.map(value => (
+                                    <Chip key={value} label={data.getReferences.Type.find(x => x.code === value)["label"]}/>
+                                    ))}
+                                </div>
+                                )}
+                            >
+                            {data.getReferences.Type.map(type => (
+                                <MenuItem key={type.code} value={type.code}>
+                                    {type.label}
+                                </MenuItem>
+                                ))}
+                            </Select>
                             <TextField
                                 id="size"
                                 select
@@ -249,7 +256,7 @@ class CreateCreature extends Component {
                                     frName: this.state.frName,
                                     pvMax: parseInt(this.state.pvMax),
                                     size_code: this.state.size_code === '' ? null : this.state.size_code,
-                                    type_code: this.state.type_code === '' ? null : this.state.type_code,
+                                    type_codes: this.state.type_codes,
                                     attitude_code: this.state.attitude_code === '' ? null : this.state.attitude_code,
                                     morality_code: this.state.morality_code === '' ? null : this.state.morality_code
                                 } });

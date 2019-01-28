@@ -11,7 +11,7 @@ type Creature {
   pvMax: Int,
   alignment: String,
   size: String,
-  type: String,
+  types: [String],
   senses: [String]
   skills: [String]
   languages: [String]

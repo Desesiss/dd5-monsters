@@ -15,16 +15,33 @@ export default {
         });
       },
       getCreature: async (parent, {id}, {models}) => { 
-        let creature = await models.Creature.findById(id);
-        let moralities = await models.Morality.findAll();
-        let attitudes = await models.Attitude.findAll();
-        let sizes = await models.Size.findAll();
+        let creature = await models.Creature.findByPk(
+          id,
+          {
+            include: [{
+              model: models.Morality
+            },
+            {
+              model: models.Attitude
+            },
+            {
+              model: models.Size
+            },
+            { model: models.Type/*, as: 'creat_types'*/ }
+            ]
+          }
+        );
+
+        
         // Alignment = attitude + morality
-        let attitude = creature.attitude_code == null ? null : attitudes.find(item => {return item.code == creature.attitude_code})['label'];
-        let morality = creature.morality_code == null ? null : moralities.find(item => {return item.code == creature.morality_code})['label'];
-        creature.alignment = (attitude == null ? '' : attitude + ' ') + (morality == null ? '' : morality)
+        let attitude = creature.attitude ? creature.attitude['label'] + ' ' : '';
+        let morality = creature.morality ? creature.morality['label'] : '';
+        creature.alignment = attitude + morality;
         // Size
-        creature.size = creature.size_code == null ? null : sizes.find(item => {return item.code == creature.size_code})['label'];
+        creature.size = creature.size_category ? creature.size_category['label'] : '';
+        // Types
+        creature.types = creature.type_categories ? creature.type_categories.map(t =>{return t['label']}) : [];
+        
         return creature;
       },
     },

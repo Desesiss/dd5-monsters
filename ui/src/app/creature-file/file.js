@@ -19,7 +19,7 @@ class CreatureFileData extends Component {
       pvMax,
       caMin, 
       caMax, 
-      type, // TO IMPLEMENT  
+      types, // TO IMPLEMENT  
       size, 
       alignment, 
        // TO IMPLEMENT  :
@@ -49,7 +49,7 @@ class CreatureFileData extends Component {
     return (
       <div className='data-card'>
         <h1>{frName + ' ('+enName+')'}</h1>
-        <h5>{(type ? type : '') + (size ? ' de taille ' + size : '') + ', ' + (alignment ? alignment : '')}</h5>
+        <h5>{(types ? types.join(', ') : '') + (size ? ' de taille ' + size : '') + ', ' + (alignment ? alignment : '')}</h5>
         <div><svg><polyline points="0,0 1000,2.5 0,5" ></polyline></svg></div>
         {displayField('Points de vie', getRange(pvMin, pvMax))}
         {displayField('Classe d\'armure', getRange(caMin, caMax))}

@@ -17,7 +17,7 @@ const CREA_GET_QUERY = gql`
       caMax
       alignment
       size
-      type
+      types
       senses
       skills
       languages

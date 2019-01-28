@@ -5,7 +5,6 @@ import schema from './schema';
 import resolvers from './resolvers';
 import {models, sequelize} from './models';
 import cors from 'cors';
-import bodyParser from 'body-parser';
 
 const app = express();
 
